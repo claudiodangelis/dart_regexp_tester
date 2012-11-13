@@ -2,86 +2,26 @@ import 'dart:html';
 
 void checkText(){
   InputElement input = query("#input");
-  DivElement textarea = query("#textarea");
 
-
-
-
+  if (input.value!=''){
+  DivElement txt = query("#textarea");
   RegExp re = new RegExp(input.value);
 
 
-  if( re.hasMatch(textarea.text) ) {
+  if( re.hasMatch(txt.innerHTML) ) {
 
-    print(textarea.text);
-    print(textarea.innerHTML);
+    List<List> matchesPositions = [];
 
-    String selectedText = '';
-
-    for (var match in re.allMatches(textarea.text)) {
-
-      String finalText = '';
-      if (selectedText==''){
-        finalText=selectedText;
-      }
-
-
-      print(match.group(0));
-      print(match.start);
-      print(match.end);
-
-      String intermedio;
-
-      int position = 0;
-      int actual = 0;
-      int looking = match.start;
-      bool count = true;
-
-
-      for (var character in textarea.innerHTML.splitChars() ){
-
-        if(character=="<"){count = false;}
-        if(character==">"){count = true;}
-        if(count==true && character!=">"){
-          print(character);
-          actual++;
-        }
-
-        if(actual==looking){break;}
-        position++;
-      }
-      print(actual);
-      print(position);
-
-
-
-      for( var x = 0; x < position; x++){
-        finalText='$finalText${textarea.innerHTML[x]}';
-      }
-      finalText='$finalText<span class=\"selection\">';
-
-
-          for (var x = 0;x<(match.end - match.start);x++)
-          {
-            finalText='$finalText${textarea.innerHTML[position+x]}';
-          }
-
-          finalText='$finalText</span>';
-
-      for ( var x = position + (match.end-match.start); x<textarea.innerHTML.length; x++){
-        finalText='$finalText${textarea.innerHTML[x]}';
-      }
-
-
-      textarea.innerHTML=finalText;
-      selectedText = finalText;
-
+    for (var match in re.allMatches(txt.innerHTML)) {
+      matchesPositions.add([match.start,match.end]);
     }
 
+    doSelection(matchesPositions,txt);
 
     query('#status').classes = ['alert','alert-success'];
     query('#status').text = 'Success';
 
-    query('#textarea').innerHTML = selectedText;
+    //query('#textarea').innerHTML = selectedText;
 
 
   } else {
@@ -90,6 +30,22 @@ void checkText(){
     query('#status').text = 'No success';
 
   }
+  }
+}
+
+void doSelection(List<List> matchesPositions, DivElement txt){
+  String selectedText ='';
+  int lastIndex = 0;
+  for ( var match in matchesPositions){
+    selectedText = '${selectedText}${txt.innerHTML.substring(lastIndex, match[0])}<span class=\"selection\">${txt.innerHTML.substring(match[0], match[1])}</span>';
+    lastIndex=match[1];
+  }
+  selectedText='${selectedText}${txt.innerHTML.substring(lastIndex,txt.innerHTML.length)}';
+
+  txt.innerHTML=selectedText;
+}
+
+void colorize(){
 
 }
 
@@ -108,13 +64,37 @@ void main() {
     input.value = "[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]";
 
     DivElement textarea = query('#textarea');
-    textarea.innerHTML = "// Grep email addresses  www.domain.com  bob@twnp.ks  aoisdj oaijsd ioajsdi  98789  dale.cooper62@fbi.ks  III00099II  ";
+    textarea.innerHTML = "<p>// Grep email addresses</p><p></p><p>www.domain.com</p><p></p><p>bob@twnp.ks</p><p></p><p>aoisdj</p><p>oaijsd</p><p>ioajsdi</p><p></p><p>98789</p><p></p><p>dale.cooper62@fbi.ks</p><p></p><p>III00099I ";
 
   });
 
+  var demo2 = query('#demo2');
+  demo2.on.click.add(function(Event event){
+    InputElement input = query('#input');
+    input.value = "\\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b";
+
+    DivElement textarea = query('#textarea');
+    textarea.innerHTML = "11.255.008.2<br>Hi<br>20.52.599.50<br>127.0.0.1<br>1.1.1.1<br>255.OO5.50.9";
+
+  });
+
+
+  var demo3 = query('#demo3');
+  demo3.on.click.add(function(Event event){
+    InputElement input = query('#input');
+    input.value = "(19|20)\\d\\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])";
+
+    DivElement textarea = query('#textarea');
+    textarea.innerHTML = "2012-13-11<br>1985-10-11<br>2008-08-06<br>1000-10-80";
+
+  });
+
+
   query('#loading').style.visibility = 'hidden';
   query('#loading').style.display = 'none';
+  query('#status').style.visibility='visible';
+  query('#status').style.display='inline';
   query('#status').classes=['alert','alert-info'];
-  query('#status').text="Insert a RegExp and a text, and try it out.";
+  query('#status').text="";
 }
 

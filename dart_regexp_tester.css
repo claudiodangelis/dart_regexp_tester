@@ -12,3 +12,8 @@
 .selection{
 background-color:yellow;
 }
+
+#status{
+visibility:hidden;
+display:none;
+}
