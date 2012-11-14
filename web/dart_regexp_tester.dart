@@ -34,15 +34,36 @@ void checkText(){
 }
 
 void doSelection(List<List> matchesPositions, DivElement txt){
-  String selectedText ='';
-  int lastIndex = 0;
-  for ( var match in matchesPositions){
-    selectedText = '${selectedText}${txt.innerHTML.substring(lastIndex, match[0])}<span class=\"selection\">${txt.innerHTML.substring(match[0], match[1])}</span>';
-    lastIndex=match[1];
-  }
-  selectedText='${selectedText}${txt.innerHTML.substring(lastIndex,txt.innerHTML.length)}';
 
-  txt.innerHTML=selectedText;
+  List<String> slices = [];
+  int lastPos = 0;
+  String plain = txt.innerHTML;
+
+
+  if ( matchesPositions[0][0] == 0){
+    slices.add(plain.substring(0,matchesPositions[0][0]));
+    lastPos = matchesPositions[0][1];
+  }
+
+  for ( var match in matchesPositions) {
+    slices.add(plain.substring(lastPos, match[0]));
+    slices.add("<span class='selection'>");
+    slices.add(plain.substring(match[0], match[1]));
+    slices.add('</span>');
+    lastPos = match[1];
+  }
+
+  if (matchesPositions[matchesPositions.length-1][1] != plain.length){
+    slices.add(plain.substring(lastPos,plain.length));
+  }
+
+  plain='';
+
+  for ( var slice in slices) {
+    plain="${plain}${slice}";
+  }
+
+  txt.innerHTML = plain;
 
 }
 
@@ -66,14 +87,19 @@ void main() {
     checkText();
   });
 
+  var clear = query('#clear');
+  clear.on.click.add(function(Event event){
+    clearText();
+  });
+
 
   var demo1 = query('#demo1');
   demo1.on.click.add(function(Event event){
     InputElement input = query('#input');
-    input.value = "[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]";
+    input.value = "[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z0-9.-]*";
 
     DivElement textarea = query('#textarea');
-    textarea.innerHTML = "// Grep email addresses [still buggy]<br>this.should@not<br>www.domain.com<br><br>bob@twnp.ks<br><br>nice@try<br>Roadhouse<br>almost@mail<br><br>98789<br><br>dale.cooper62@fbi.ks<br> ";
+    textarea.innerHTML = "<div>// Grep email addresses [still buggy]</div><div>this.should@not</div><div>www.domain.com</div><div></div><div>bob@twnp.ks</div><div></div><div>nice@try</div><div>Roadhouse</div><div>almost@mail</div><div></div><div>98789</div><div></div><div>dale.cooper62@fbi.ks</div>";
 
   });
 
@@ -102,5 +128,12 @@ void main() {
   query('#status').text="Ready";
   query('#status').classes=['alert','alert-info'];
 
+}
+
+clearText() {
+  query('#textarea').text="";
+  query('#input').value="";
+  query('#status').text="Ready";
+  query('#status').classes=['alert','alert-info'];
 }
 

@@ -11,11 +11,16 @@
 
 
 
-#imglogo{
-vertical-align:text-bottom;}
+#logowrapper{
+text-align:center;
+margin-bottom:-15px;
+}
 
 footer{
 text-align:center;
 font-size:small;
 line-height:0.7;
 }
+
+#sidebar{
+text-align:center;}
