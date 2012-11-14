@@ -1,74 +1,60 @@
+<!DOCTYPE html>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>Dart_regexp_tester</title>
-  <link rel="stylesheet" href="web/bootstrap/css/bootstrap.min.css" type="text/css" />
-  <link rel="stylesheet" href="web/bootstrap/css/bootstrap-responsive.min.css" type=
-  "text/css" />
-  <link rel="stylesheet" href="web/dart_regexp_tester.css" type="text/css" />
+  <title>Regular Expression Tester</title>
+  <link href="web/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="web/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+  <link href="web/dart_regexp_tester.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
   <div class="container-fluid">
-    <h1>RegExp Tester <small>v0.1.4</small></h1>
+    <h1>RegExp Tester <small>v0.1.5</small></h1>
 
-    <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span8">
-          <div>
-            <div class="input-append">
-            <input type="text" id="input" class="span7" autofocus="autofocus"
-            placeholder="Give me your regular expression..." />
-            <button class="btn btn-success" id="button">Test expression</button>
-            <button class="btn" id="clear">Clear</button>
-            </div>
-                      <div id="status" class="alert">Loading...</div>
-
-
+    <div class="container-fluid row-fluid">
+      <div class="span8">
+        <div>
+          <div class="input-append">
+            <input autofocus="autofocus" class="span7" id="input" placeholder="Give me your regular expression..." type="text" /> <button class=
+            "btn btn-success" id="button">Test expression</button> <button class="btn" id="clear">Clear</button>
           </div>
 
-          <div class="well">
-            <div id="textarea" contenteditable="true"></div>
+          <div class="alert" id="status">
+            Loading...
           </div>
-
-
         </div>
 
-        <div id="sidebar" class="span4 well" >
-          <div class="row-fluid">
+        <div class="well" contenteditable="true" id="textarea"></div>
+      </div>
 
+      <div class="span4 well row-fluid" id="sidebar">
+        <div class="row-fluid">
+          <p><button class="btn span4" id="demo1">Demo 1</button> <button class="btn span4" id="demo2">Demo 2</button> <button class="btn span4" id=
+          "demo3">Demo 3</button></p>
+        </div>
 
-                      <div class="row-fluid">
-                      <p>
-              <button id="demo1" class="btn span4">Demo 1</button>
-              <button id="demo2" class="btn span4">Demo 2</button>
-              <button id="demo3" class="btn span4">Demo 3</button>
-              </p>
-            </div>
-            <div class="row-fluid">
-            <p></p>
-            <p>Source code at <a href="https://github.com/claudiodangelis/dart_regexp_tester">GitHub</a></p>
-            <p>Found a bug? <a href="https://github.com/claudiodangelis/dart_regexp_tester/issues">File it!</a></p>
-            <p>This web  application is written in <a href="http://www.dartlang.org">Dart</a> </p>
-            <p id="logowrapper"><img id="imglogo" src="web/logo.png"/></p>
-</div>
-          </div>
+        <div class="row-fluid">
+          <p>Source code at <a href="https://github.com/claudiodangelis/dart_regexp_tester">GitHub</a></p>
+
+          <p>Found a bug? <a href="https://github.com/claudiodangelis/dart_regexp_tester/issues">File it!</a></p>
+
+          <p>This web application is written in <a href="http://www.dartlang.org">Dart</a></p>
+
+          <p id="logowrapper"><img id="imglogo" src="web/logo.png" /></p>
         </div>
       </div>
     </div>
-<hr/>
+    <hr />
+
     <footer>
-    <p><strong>license:</strong> This software is opensource and it's distributed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a></p>
-    <p><strong>credits:</strong> <a href="jquery.com">jQuery</a>, <a href="twitter.github.com/bootstrap">Twitter Bootstrap</a></p>
-    <p><strong>author:</strong> <a href="http://www.claudiodangelis.it/about">Claudio &quot;Dawson&quot; d'Angelis</a> </p>
+      <p><strong>license:</strong> This software is opensource and it's distributed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache
+      License, Version 2.0</a></p>
+
+      <p><strong>credits:</strong> <a href="jquery.com">jQuery</a>, <a href="twitter.github.com/bootstrap">Twitter Bootstrap</a></p>
+
+      <p><strong>author:</strong> <a href="http://www.claudiodangelis.it/about">Claudio "Dawson" d'Angelis</a></p>
     </footer>
-
-  </div>
-
-
-
-  <script src="web/jquery-1.8.2.min.js" type="text/javascript"></script>
-<script src="web/bootstrap/js/bootstrap.js" type="text/javascript"></script>
-<script type="application/dart" src="web/dart_regexp_tester.dart"></script>
-<script src="https://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js" type="text/javascript"></script>
+  </div><script src="web/jquery-1.8.2.min.js" type="text/javascript"></script><script src="web/bootstrap/js/bootstrap.js" type="text/javascript"></script><script src="web/dart_regexp_tester.dart" type="application/dart"></script><script src="https://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js" type="text/javascript"></script>
 </body>
 </html>
