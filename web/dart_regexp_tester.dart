@@ -7,6 +7,7 @@ void checkText(){
   DivElement txt = query("#textarea");
   RegExp re = new RegExp(input.value);
 
+  txt.innerHTML=txt.innerHTML.replaceAll(new RegExp('</?[span][^>]*>'),'');
 
   if( re.hasMatch(txt.innerHTML) ) {
 
@@ -39,12 +40,6 @@ void doSelection(List<List> matchesPositions, DivElement txt){
   int lastPos = 0;
   String plain = txt.innerHTML;
 
-
-  if ( matchesPositions[0][0] == 0){
-    slices.add(plain.substring(0,matchesPositions[0][0]));
-    lastPos = matchesPositions[0][1];
-  }
-
   for ( var match in matchesPositions) {
     slices.add(plain.substring(lastPos, match[0]));
     slices.add("<span class='selection'>");
@@ -70,13 +65,16 @@ void doSelection(List<List> matchesPositions, DivElement txt){
 void colorize(){
 
   // dart logo colors: [0,216,197] [0,150,210] [102,229,204] [0,152,223]
-List<String> leColors = ['#00D8C5','#0096D2','#66E5CC','#0098DF'];
-var allSelections = queryAll('.selection');
-for( var i = 0; i<allSelections.length;i++){
-  allSelections[i].style.backgroundColor=leColors[i%leColors.length];
-  allSelections[i].style.color='#ffffff';
+  List<String> leColors = ['#00D8C5','#0096D2','#66E5CC','#0098DF'];
+  var allSelections = queryAll('.selection');
+  for( var i = 0; i<allSelections.length;i++){
+    allSelections[i].style.backgroundColor=leColors[i%leColors.length];
+    allSelections[i].style.color='#ffffff';
+  }
 }
 
+deColorize(){
+  query('#textarea').innerHTML=query('#textarea').innerHTML.replaceAll(new RegExp('</?[span][^>]*>'),'');
 }
 
 void main() {
@@ -99,7 +97,7 @@ void main() {
     input.value = "[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z0-9.-]*";
 
     DivElement textarea = query('#textarea');
-    textarea.innerHTML = "<div>// Grep email addresses [still buggy]</div><div>this.should@not</div><div>www.domain.com</div><div></div><div>bob@twnp.ks</div><div></div><div>nice@try</div><div>Roadhouse</div><div>almost@mail</div><div></div><div>98789</div><div></div><div>dale.cooper62@fbi.ks</div>";
+    textarea.innerHTML = "<div>Catch email addresses</div><div>this.should@not</div><div>www.domain.com</div><div></div><div>bob@twnp.ks</div><div></div><div>nice@try</div><div>Roadhouse</div><div>almost@mail</div><div></div><div>98789</div><div></div><div>dale.cooper62@fbi.ks</div>";
 
   });
 
@@ -124,6 +122,9 @@ void main() {
 
   });
 
+  query('#textarea').on.click.add(function(Event event){
+    deColorize();
+  });
 
   query('#status').text="Ready";
   query('#status').classes=['alert','alert-info'];
@@ -136,4 +137,5 @@ clearText() {
   query('#status').text="Ready";
   query('#status').classes=['alert','alert-info'];
 }
+
 
