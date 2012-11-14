@@ -17,18 +17,18 @@ void checkText(){
     }
 
     doSelection(matchesPositions,txt);
+    colorize();
 
+    query('#status').text = "${matchesPositions.length} matches found.";
     query('#status').classes = ['alert','alert-success'];
-    query('#status').text = 'Success';
 
     //query('#textarea').innerHTML = selectedText;
 
 
   } else {
 
+    query('#status').text = "No matches found.";
     query('#status').classes = ['alert','alert-error'];
-    query('#status').text = 'No success';
-
   }
   }
 }
@@ -43,9 +43,18 @@ void doSelection(List<List> matchesPositions, DivElement txt){
   selectedText='${selectedText}${txt.innerHTML.substring(lastIndex,txt.innerHTML.length)}';
 
   txt.innerHTML=selectedText;
+
 }
 
 void colorize(){
+
+  // dart logo colors: [0,216,197] [0,150,210] [102,229,204] [0,152,223]
+List<String> leColors = ['#00D8C5','#0096D2','#66E5CC','#0098DF'];
+var allSelections = queryAll('.selection');
+for( var i = 0; i<allSelections.length;i++){
+  allSelections[i].style.backgroundColor=leColors[i%leColors.length];
+  allSelections[i].style.color='#ffffff';
+}
 
 }
 
@@ -64,7 +73,7 @@ void main() {
     input.value = "[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]";
 
     DivElement textarea = query('#textarea');
-    textarea.innerHTML = "<p>// Grep email addresses</p><p></p><p>www.domain.com</p><p></p><p>bob@twnp.ks</p><p></p><p>aoisdj</p><p>oaijsd</p><p>ioajsdi</p><p></p><p>98789</p><p></p><p>dale.cooper62@fbi.ks</p><p></p><p>III00099I ";
+    textarea.innerHTML = "// Grep email addresses [still buggy]<br>this.should@not<br>www.domain.com<br><br>bob@twnp.ks<br><br>nice@try<br>Roadhouse<br>almost@mail<br><br>98789<br><br>dale.cooper62@fbi.ks<br> ";
 
   });
 
@@ -74,7 +83,7 @@ void main() {
     input.value = "\\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b";
 
     DivElement textarea = query('#textarea');
-    textarea.innerHTML = "11.255.008.2<br>Hi<br>20.52.599.50<br>127.0.0.1<br>1.1.1.1<br>255.OO5.50.9";
+    textarea.innerHTML = "Valid IPs:<br>11.255.008.2<br>Hi<br>20.52.599.50<br>127.0.0.1<br>1.1.1.1<br>255.OO5.50.9";
 
   });
 
@@ -85,16 +94,13 @@ void main() {
     input.value = "(19|20)\\d\\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])";
 
     DivElement textarea = query('#textarea');
-    textarea.innerHTML = "2012-13-11<br>1985-10-11<br>2008-08-06<br>1000-10-80";
+    textarea.innerHTML = "Valid dates:<br>2012-13-11<br>1985-10-11<br>2008-08-06<br>1000-10-80";
 
   });
 
 
-  query('#loading').style.visibility = 'hidden';
-  query('#loading').style.display = 'none';
-  query('#status').style.visibility='visible';
-  query('#status').style.display='inline';
+  query('#status').text="Ready";
   query('#status').classes=['alert','alert-info'];
-  query('#status').text="";
+
 }
 

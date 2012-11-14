@@ -1,58 +1,73 @@
-<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Linux/x86 (vers 11 February 2007), see www.w3.org" />
+  <meta charset="utf-8" />
 
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Dart_regexp_tester</title>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bootstrap/css/bootstrap-responsive.min.css">
-    <link rel="stylesheet" href="dart_regexp_tester.css">
-  </head>
-  <body>
+  <title>Dart_regexp_tester</title>
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="bootstrap/css/bootstrap-responsive.min.css" type=
+  "text/css" />
+  <link rel="stylesheet" href="dart_regexp_tester.css" type="text/css" />
+</head>
+
+<body>
+  <div class="container-fluid">
+    <h1>RegExp Tester <small>v0.1.2</small></h1>
 
     <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span8">
+          <div>
+            <div class="input-append">
+            <input type="text" id="input" class="span7" autofocus="autofocus"
+            placeholder="Give me your regular expression..." />
+            <button class="btn btn-success" id="button">Go!</button>
+            </div>
+                      <div id="status" class="alert">Loading...</div>
 
-    <h1>RegExp Tester <small>v0.1.1</small></h1>
-    <div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span9">
 
-      <div>
+          </div>
 
-  <div class="input-append" >
-        <input type="text" id="input" style="display:inline-block" autofocus="autofocus" placeholder="Give me your regular expression..."/>
-        <button class="btn btn-success"  id="button">Go!</button>
-                <button id="demo1" class="btn">Demo 1</button>
-            <button id="demo2" class="btn">Demo 2</button>
-            <button id="demo3" class="btn">Demo 3</button>
-    </div>
+          <div class="well">
+            <div id="textarea" contenteditable="true"></div>
+          </div>
 
+
+        </div>
+
+        <div id="sidebar" class="span4 well" >
+          <div class="row-fluid">
+
+
+          <p>Built with <a href="http://www.dartlang.org">Dart</a> <img id="imglogo" src="web/logo.png"/></p>
+          <p>Code at <a href="https://github.com/claudiodangelis/dart_regexp_tester">GitHub</a></p>
+                      <div class="row-fluid">
+              <button id="demo1" class="btn span4">Demo 1</button>
+              <button id="demo2" class="btn span4">Demo 2</button>
+              <button id="demo3" class="btn span4">Demo 3</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="well">
-      <div id="textarea" contenteditable="true"></div>
-</div>
     </div>
-    <div class="span3">
-    <div id="loading" class="progress progress-striped active">
-      <div class="bar" style="width: 100%;"></div>
-    </div>
-      <div class="alert" id="status"></div>
+<hr/>
+    <footer>
+    <p><strong>license:</strong> This software is opensource and it's distributed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a></p>
+    <p><strong>credits:</strong> <a href="jquery.com">jQuery</a>, <a href="twitter.github.com/bootstrap">Twitter Bootstrap</a></p>
+    <p><strong>author:</strong> <a href="http://www.claudiodangelis.it/about">Claudio &quot;Dawson&quot; d'Angelis</a> </p>
+    </footer>
 
-			<div class="row-fluid">
-			</div>
-
-
-    </div>
   </div>
-</div>
 
-    </div>
 
-  </body>
-  <script src="jquery-1.8.2.min.js"></script>
-  <script src="bootstrap/js/bootstrap.js"></script>
 
-    <script type="application/dart" src="web/dart_regexp_tester.dart"></script>
-    <script src="https://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js"></script>
-
+  <script src="jquery-1.8.2.min.js" type="text/javascript">
+</script><script src="bootstrap/js/bootstrap.js" type="text/javascript">
+</script><script type="application/dart" src="web/dart_regexp_tester.dart">
+</script><script src=
+"https://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js" type=
+"text/javascript">
+</script>
+</body>
 </html>

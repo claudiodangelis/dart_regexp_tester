@@ -9,11 +9,13 @@
 
 }
 
-.selection{
-background-color:yellow;
-}
 
-#status{
-visibility:hidden;
-display:none;
+
+#imglogo{
+vertical-align:text-bottom;}
+
+footer{
+text-align:center;
+font-size:small;
+line-height:0.7;
 }
