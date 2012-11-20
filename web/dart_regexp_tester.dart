@@ -1,10 +1,12 @@
 import 'dart:html';
 
-DivElement textarea = query('#textarea');
+TextAreaElement textarea = query('#textarea');
+DivElement divarea = query('#divarea');
 DivElement status = query('#status');
 InputElement input = query('#input');
 
 bool  selected = false;
+String currentContent = '';
 
 void main() {
 
@@ -20,35 +22,32 @@ void main() {
 
   var demo1 = query('#demo1');
   demo1.on.click.add(function(Event event){
-    input.value = "[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z0-9.-]*";
-    textarea.innerHTML = "<div>Catch email addresses</div><div>this.should@not</div><div>www.domain.com</div><div></div><div>bob@twnp.ks</div><div></div><div>nice@try</div><div>Roadhouse</div><div>almost@mail</div><div></div><div>98789</div><div></div><div>dale.cooper62@fbi.ks</div>";
+    clearText();
+    input.value = "\\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b";
+    textarea.value = "Catch email addresses\nthis.should@not\nwww.domain.com\n\nbob@twnp.ks\n\nnice@try.buddy\nRoadhouse\nalmost@mail\n\n98789\n\ndale.cooper62@fbi.ks";
   });
 
   var demo2 = query('#demo2');
   demo2.on.click.add(function(Event event){
+    clearText();
     input.value = "\\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b";
-    textarea.innerHTML = "Valid IPs:<br>11.255.008.2<br>Hi<br>20.52.599.50<br>127.0.0.1<br>1.1.1.1<br>255.OO5.50.9";
+    textarea.value = "Valid IPs:\n11.255.008.2\nHi\n20.52.599.50\n127.0.0.1\n1.1.1.1\n255.OO5.50.9";
   });
 
   var demo3 = query('#demo3');
   demo3.on.click.add(function(Event event){
+    clearText();
     input.value = "(19|20)\\d\\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])";
-    textarea.innerHTML = "Valid dates:<br>2012-13-11<br>1985-10-11<br>2008-08-06<br>1000-10-80";
+    textarea.value = "Valid dates:\n2012-13-11\n1985-10-11\n2008-08-06\n1000-10-80";
   });
 
-  textarea.on.click.add(function(Event event){
-    deColorize();
+  divarea.on.click.add(function (Event event){
+    selected = false;
+    toggleViews();
+    status.text="Ready";
+    status.classes=['alert','alert-info'];
   });
 
-  status.text="Ready";
-  status.classes=['alert','alert-info'];
-
-}
-
-clearText() {
-
-  textarea.text="";
-  input.value="";
   status.text="Ready";
   status.classes=['alert','alert-info'];
 
@@ -57,39 +56,56 @@ clearText() {
 void checkText(){
 
   if (input.value!=''){
-  RegExp re = new RegExp(input.value);
+    RegExp re = new RegExp(input.value);
 
-  textarea.innerHTML=textarea.innerHTML.replaceAll(new RegExp('</?[span][^>]*>'),'');
+    if( re.hasMatch(textarea.value) ) {
 
-  if( re.hasMatch(textarea.innerHTML) ) {
+      List<List> matchesPositions = [];
 
-    List<List> matchesPositions = [];
+      for (var match in re.allMatches(textarea.value)) {
+        matchesPositions.add([match.start,match.end]);
+      }
 
-    for (var match in re.allMatches(textarea.innerHTML)) {
-      matchesPositions.add([match.start,match.end]);
+      doSelection(matchesPositions,textarea);
+      colorize();
+      toggleViews();
+      status.text = "${matchesPositions.length} matches found.";
+      status.classes = ['alert','alert-success'];
+
+    } else {
+
+      status.text = "No matches found.";
+      status.classes = ['alert','alert-error'];
     }
-
-    doSelection(matchesPositions,textarea);
-    colorize();
-
-    status.text = "${matchesPositions.length} matches found.";
-    status.classes = ['alert','alert-success'];
-
-  } else {
-
-    status.text = "No matches found.";
-    status.classes = ['alert','alert-error'];
-  }
   }
 }
 
-void doSelection(List<List> matchesPositions, DivElement textarea){
+void toggleViews() {
+
+  if (selected){
+    textarea.style.visibility='hidden';
+    textarea.style.display = 'none';
+
+    divarea.style.visibility='visible';
+    divarea.style.display='inline-block';
+  } else {
+
+    textarea.style.visibility = 'visible';
+    textarea.style.display = 'inline-block';
+
+    divarea.style.visibility='hidden';
+    divarea.style.display = 'none';
+  }
+
+}
+
+void doSelection(List<List> matchesPositions, TextAreaElement textarea){
 
   selected = true;
 
   List<String> slices = [];
   int lastPos = 0;
-  String plain = textarea.innerHTML;
+  String plain = textarea.value;
 
   for ( var match in matchesPositions) {
     slices.add(plain.substring(lastPos, match[0]));
@@ -109,7 +125,8 @@ void doSelection(List<List> matchesPositions, DivElement textarea){
     plain="${plain}${slice}";
   }
 
-  textarea.innerHTML = plain;
+  divarea.innerHTML = plain.replaceAll('\n', '<br/>');
+  currentContent = plain;
 
 }
 
@@ -129,4 +146,16 @@ deColorize(){
     textarea.innerHTML=textarea.innerHTML.replaceAll(new RegExp('</?[span][^>]*>'),'');
     selected=false;
   }
+}
+
+clearText() {
+
+  selected = false;
+  toggleViews();
+  textarea.value="";
+  input.value="";
+  divarea.innerHTML="";
+  status.text="Ready";
+  status.classes=['alert','alert-info'];
+
 }
