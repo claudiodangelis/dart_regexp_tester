@@ -37,8 +37,8 @@ void main() {
   var demo3 = query('#demo3');
   demo3.on.click.add(function(Event event){
     clearText();
-    input.value = "(19|20)\\d\\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])";
-    textarea.value = "Valid dates:\n2012-13-11\n1985-10-11\n2008-08-06\n1000-10-80";
+    input.value = "A|D|E|I|M|O|R|S|T|W";
+    textarea.value = "DART IS AWESOME";
   });
 
   divarea.on.click.add(function (Event event){
@@ -53,9 +53,20 @@ void main() {
 
 }
 
-void checkText(){
+int checkText(){
 
   if (input.value!=''){
+
+
+    if ( input.value.contains(new RegExp('[^.]\\*') )){
+      status.innerHTML ="<b>Warning!</b><br/>"
+          "Your expression contains a pattern that is known to <b>freeze the browser</b> with Javascript compiled version.<br/>"
+          "Consider replacing \"*\" with \".*\" (dot and asterisk)<br/>"
+          "See <a href=\"http://github.com/claudiodangelis/dart_regular_expression_tester/issues/2\">Issue #2</a> on GitHub repository";
+      status.classes = ['alert', 'alert-error'];
+      return 1;
+    }
+
     RegExp re = new RegExp(input.value);
 
     if( re.hasMatch(textarea.value) ) {
@@ -76,8 +87,12 @@ void checkText(){
 
       status.text = "No matches found.";
       status.classes = ['alert','alert-error'];
+      selected = false;
+      toggleViews();
     }
   }
+
+  return 0;
 }
 
 void toggleViews() {
