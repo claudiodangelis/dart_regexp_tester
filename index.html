@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <title>Regular Expression Tester</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="web/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
   <link href="web/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
   <link href="web/dart_regexp_tester.css" rel="stylesheet" type="text/css" />
@@ -10,7 +11,7 @@
 
 <body>
   <div class="container-fluid">
-    <h1>RegExp Tester <small>v0.2.2</small></h1>
+    <h1>RegExp Tester <small>v0.2.3</small></h1>
 
     <div class="container-fluid row-fluid">
       <div class="span8">
@@ -21,11 +22,11 @@
           </div>
 
           <div class="alert" id="status">
-            Loading...
+            <p>Loading...</p>
           </div>
         </div>
 
-        <textarea id="textarea"  rows="10" cols="10"></textarea>
+        <textarea id="textarea" placeholder="Give me some text..." rows="10" cols="10"></textarea>
         <div id="divarea"></div>
 
       </div>
@@ -37,6 +38,7 @@
         </div>
 
         <div class="row-fluid">
+          <br/>
           <p>Source code at <a href="https://github.com/claudiodangelis/dart_regexp_tester">GitHub</a></p>
 
           <p>Found a bug? <a href="https://github.com/claudiodangelis/dart_regexp_tester/issues">File it!</a></p>
@@ -55,7 +57,7 @@
 
       <p><strong>credits:</strong> <a href="jquery.com">jQuery</a>, <a href="twitter.github.com/bootstrap">Twitter Bootstrap</a></p>
 
-      <p><strong>author:</strong> <a href="http://www.claudiodangelis.it/about">Claudio "Dawson" d'Angelis</a></p>
+      <p><strong>author:</strong> <a href="http://www.claudiodangelis.it/about">Claudio "Dawson" d'Angelis</a> | <a href="http://twitter.com/daw___">@daw___</a> | <a href="http://www.claudiodangelis.it/+">Google+</a></p>
     </footer>
   </div><script src="web/jquery-1.8.2.min.js" type="text/javascript"></script><script src="web/bootstrap/js/bootstrap.js" type="text/javascript"></script><script src="web/dart_regexp_tester.dart" type="application/dart"></script><script src="https://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js" type="text/javascript"></script>
 </body>

@@ -24,7 +24,7 @@ void main() {
   demo1.on.click.add(function(Event event){
     clearText();
     input.value = "\\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b";
-    textarea.value = "Catch email addresses\nthis.should@not\nwww.domain.com\n\nbob@twnp.ks\n\nnice@try.buddy\nRoadhouse\nalmost@mail\n\n98789\n\ndale.cooper62@fbi.ks";
+    textarea.value = "Catch email addresses\nthis.should@not\nwww.domain.com\nbob@twnp.ks\nnice@try.buddy\nRoadhouse\nalmost@mail\n123456\ndale.cooper62@fbi.ks";
   });
 
   var demo2 = query('#demo2');
@@ -44,12 +44,10 @@ void main() {
   divarea.on.click.add(function (Event event){
     selected = false;
     toggleViews();
-    status.text="Ready";
-    status.classes=['alert','alert-info'];
+    updateStatus(0,"Ready");
   });
 
-  status.text="Ready";
-  status.classes=['alert','alert-info'];
+  updateStatus(0,"Ready");
 
 }
 
@@ -59,11 +57,10 @@ int checkText(){
 
 
     if ( input.value.contains(new RegExp('[^.]\\*') )){
-      status.innerHTML ="<b>Warning!</b><br/>"
-          "Your expression contains a pattern that is known to <b>freeze the browser</b> with Javascript compiled version.<br/>"
-          "Consider replacing \"*\" with \".*\" (dot and asterisk)<br/>"
-          "See <a href=\"http://github.com/claudiodangelis/dart_regular_expression_tester/issues/2\">Issue #2</a> on GitHub repository";
-      status.classes = ['alert', 'alert-error'];
+      updateStatus(2,"<b>Warning!</b><br/>"
+                   "Your expression contains a pattern that is known to <b>freeze the browser</b> with Javascript compiled version.<br/>"
+                   "Consider replacing \"*\" with \".*\" (dot and asterisk)<br/>"
+                   "See <a href=\"http://github.com/claudiodangelis/dart_regular_expression_tester/issues/2\">Issue #2</a> on GitHub repository");
       return 1;
     }
 
@@ -80,15 +77,13 @@ int checkText(){
       doSelection(matchesPositions,textarea);
       colorize();
       toggleViews();
-      status.text = "${matchesPositions.length} matches found.";
-      status.classes = ['alert','alert-success'];
+      updateStatus(1,"${matchesPositions.length} matches found.");
 
     } else {
 
-      status.text = "No matches found.";
-      status.classes = ['alert','alert-error'];
       selected = false;
       toggleViews();
+      updateStatus(2,"No matches found.");
     }
   }
 
@@ -103,6 +98,7 @@ void toggleViews() {
 
     divarea.style.visibility='visible';
     divarea.style.display='inline-block';
+
   } else {
 
     textarea.style.visibility = 'visible';
@@ -110,6 +106,7 @@ void toggleViews() {
 
     divarea.style.visibility='hidden';
     divarea.style.display = 'none';
+
   }
 
 }
@@ -168,9 +165,17 @@ clearText() {
   selected = false;
   toggleViews();
   textarea.value="";
+  updateStatus(0,"Ready");
   input.value="";
   divarea.innerHTML="";
-  status.text="Ready";
-  status.classes=['alert','alert-info'];
+
+}
+
+updateStatus(int value, String text){
+
+  List<String> values = ['alert-info','alert-success','alert-error'];
+  status
+      ..innerHTML='<p>$text</p>'
+      ..classes=['alert',values[value]];
 
 }

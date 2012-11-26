@@ -9,9 +9,10 @@ Author [Claudio "Dawson" d'Angelis](http://www.claudiodangelis.it/about)
 ## TODO
 
 - Avoid several identical elment.attribute calls 
-- Group `status`-related statements under a single function
+- ~~Group `status`-related statements under a single function~~
 - Add a "Quick Reference" panel
 - Replace third party components with CDN mirrors
+- Fix input width on small displays
 
 ## Credits
 
