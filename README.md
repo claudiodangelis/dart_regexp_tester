@@ -2,9 +2,13 @@
 
 A RegExp tester built with [Dart](http://www.dartlang.org).
 
-Hosted version at [GitHub Pages](http://claudiodangelis.github.com/dart_regexp_tester/)
+Hosted version at [GitHub Pages](http://claudiodangelis.github.io/dart_regexp_tester/)
 
-Author [Claudio "Dawson" d'Angelis](http://www.claudiodangelis.it/about)
+Author [Claudio d'Angelis](http://www.claudiodangelis.com/about)
+
+## Screenshot
+
+![Screenshot](screenshot.png)
 
 ## TODO
 
@@ -16,6 +20,6 @@ Author [Claudio "Dawson" d'Angelis](http://www.claudiodangelis.it/about)
 
 ## Credits
 
-Graphic interface improved with [Twitter Bootstrap](twitter.github.com/bootstrap) and [jQuery](http://jquery.com)
+Graphic interface improved with [Twitter Bootstrap](twitter.github.com/bootstrap)
 
 _See LICENSE_

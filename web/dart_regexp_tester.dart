@@ -1,47 +1,47 @@
 import 'dart:html';
 
-TextAreaElement textarea = query('#textarea');
-DivElement divarea = query('#divarea');
-DivElement status = query('#status');
-InputElement input = query('#input');
+TextAreaElement textarea = querySelector('#textarea');
+DivElement divarea = querySelector('#divarea');
+DivElement status = querySelector('#status');
+InputElement input = querySelector('#input');
 
 bool  selected = false;
 String currentContent = '';
 
 void main() {
 
- var button = query('#button');
-  button.on.click.add(function(Event event){
+ var button = querySelector('#button');
+  button.onClick.listen((e) {
     checkText();
   });
 
-  var clear = query('#clear');
-  clear.on.click.add(function(Event event){
+  var clear = querySelector('#clear');
+  clear.onClick.listen((e) {
     clearText();
   });
 
-  var demo1 = query('#demo1');
-  demo1.on.click.add(function(Event event){
+  var demo1 = querySelector('#demo1');
+  demo1.onClick.listen((e) {
     clearText();
     input.value = "\\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}\\b";
     textarea.value = "Catch email addresses\nthis.should@not\nwww.domain.com\nbob@twnp.ks\nnice@try.buddy\nRoadhouse\nalmost@mail\n123456\ndale.cooper62@fbi.ks";
   });
 
-  var demo2 = query('#demo2');
-  demo2.on.click.add(function(Event event){
+  var demo2 = querySelector('#demo2');
+  demo2.onClick.listen((e) {
     clearText();
     input.value = "\\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b";
     textarea.value = "Valid IPs:\n11.255.008.2\nHi\n20.52.599.50\n127.0.0.1\n1.1.1.1\n255.OO5.50.9";
   });
 
-  var demo3 = query('#demo3');
-  demo3.on.click.add(function(Event event){
+  var demo3 = querySelector('#demo3');
+  demo3.onClick.listen((e) {
     clearText();
     input.value = "A|D|E|I|M|O|R|S|T|W";
     textarea.value = "DART IS AWESOME";
   });
 
-  divarea.on.click.add(function (Event event){
+  divarea.onClick.listen((e) {
     selected = false;
     toggleViews();
     updateStatus(0,"Ready");
@@ -137,7 +137,7 @@ void doSelection(List<List> matchesPositions, TextAreaElement textarea){
     plain="${plain}${slice}";
   }
 
-  divarea.innerHTML = plain.replaceAll('\n', '<br/>');
+  divarea.innerHtml = plain.replaceAll('\n', '<br/>');
   currentContent = plain;
 
 }
@@ -146,7 +146,7 @@ void colorize(){
 
   // dart logo colors: [0,216,197] [0,150,210] [102,229,204] [0,152,223]
   List<String> leColors = ['#00D8C5','#0096D2','#66E5CC','#0098DF'];
-  var allSelections = queryAll('.selection');
+  var allSelections = querySelectorAll('.selection');
   for( var i = 0; i<allSelections.length;i++){
     allSelections[i].style.backgroundColor=leColors[i%leColors.length];
     allSelections[i].style.color='#ffffff';
@@ -155,7 +155,7 @@ void colorize(){
 
 deColorize(){
   if (selected){
-    textarea.innerHTML=textarea.innerHTML.replaceAll(new RegExp('</?[span][^>]*>'),'');
+    textarea.innerHtml=textarea.innerHtml.replaceAll(new RegExp('</?[span][^>]*>'),'');
     selected=false;
   }
 }
@@ -167,7 +167,7 @@ clearText() {
   textarea.value="";
   updateStatus(0,"Ready");
   input.value="";
-  divarea.innerHTML="";
+  divarea.innerHtml="";
 
 }
 
@@ -175,7 +175,7 @@ updateStatus(int value, String text){
 
   List<String> values = ['alert-info','alert-success','alert-error'];
   status
-      ..innerHTML='<p>$text</p>'
+      ..innerHtml='<p>$text</p>'
       ..classes=['alert',values[value]];
 
 }
