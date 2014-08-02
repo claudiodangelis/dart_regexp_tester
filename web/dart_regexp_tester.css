@@ -1,11 +1,8 @@
 html{
-
   overflow-y:scroll;
-
 }
 
-#textarea{
-
+#textarea {
   border:1px solid #CCC;
   width:100%;
   max-height:300px;
@@ -14,11 +11,9 @@ html{
   padding:6px;
   overflow-y:scroll;
   resize: none;
-
 }
 
-#divarea{
-
+#divarea {
   visibility: hidden;
   display: none;
   border: 1px solid #CCC;
@@ -28,31 +23,24 @@ html{
   background-color:white;
   padding:6px;
   overflow-y:scroll;
-
 }
 
-#logowrapper{
-
+#logowrapper {
   text-align:center;
   margin-bottom:-15px;
-
 }
 
-footer{
-
+footer {
   text-align:center;
   font-size:small;
   line-height:1.5;
-
 }
 
-#sidebar{
-
+#sidebar {
   text-align:center;
-
 }
 
-#status{
+#status {
   padding:6px;
   padding-bottom:0px;
 }
